@@ -100,7 +100,7 @@ export default function Role() {
                 <TableCell>Role Name</TableCell>
                 <TableCell align="left">Slug</TableCell>
                 <TableCell align="left">Status</TableCell>
-                <TableCell align="center">Change Permission</TableCell>
+                <TableCell align="center">Manage Permission</TableCell>
                 <TableCell align="right">Action</TableCell>
               </TableRow>
             </TableHead>

@@ -100,7 +100,7 @@ export default function PermissionModule() {
                 <TableCell>Permission Module Name</TableCell>
                 <TableCell align="left">Module API</TableCell>
                 <TableCell align="left">Status</TableCell>
-                <TableCell align="center">Permission</TableCell>
+                <TableCell align="center">Permission List</TableCell>
                 <TableCell align="right">Action</TableCell>
               </TableRow>
             </TableHead>
@@ -122,7 +122,7 @@ export default function PermissionModule() {
                       to={'/permission/'+permissionModule.id}
                       sx={{fontSize:'25px'}}
                     >
-                      <Iconify icon="bx:lock-open" />
+                      <Iconify icon="material-symbols-light:menu-book-outline" />
                     </LinkButton>
                   </TableCell> 
                   <TableCell align="right">

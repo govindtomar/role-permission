@@ -118,7 +118,7 @@ export default function AddPermission() {
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
-                  {permissionModule && permissionModule.module_api}
+                  {permissionModule && permissionModule.module_api}/
                 </InputAdornment>
               ),
             }} 

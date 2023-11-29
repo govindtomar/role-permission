@@ -16,7 +16,7 @@ class AuthController extends ApiController
 
     public function login(LoginRequest $request){
         try {
-            
+
             return $this->auth($request, 'User login successfully');
 
         } catch (Exception $e) {
@@ -36,7 +36,7 @@ class AuthController extends ApiController
             $user->password = bcrypt($request->password);
             $user->save();
 
-            $user->roles()->attach(1);
+            $user->roles()->attach(2);
 
             return $this->auth($request, 'User registered successfully');
 
@@ -83,7 +83,7 @@ class AuthController extends ApiController
             return $this->errorResponse($e->getMessage());
         }
     }
-    
+
 
     public function refresh() {
         try{

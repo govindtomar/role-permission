@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('roles', function (Blueprint $table) {
             $table->id();
             $table->string('name', 40);
-            $table->string('slug', 40)->unique();            
+            $table->string('slug', 40)->unique();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('status')->default(true);
             $table->softDeletes();
             $table->timestamps();

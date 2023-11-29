@@ -146,13 +146,15 @@ export default function AddUser() {
               renderValue={(selected) => (
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                   {selected.map((value) => (
-                    <Chip key={value} label={value} />
+                    roles.data && roles.data.map((role) => (
+                      value === role.id ? <Chip key={value} label={role.name} /> : ''
+                    ))
                   ))}
                 </Box>
               )}
             >
               {roles.data && roles.data.map((role) => (
-                <MenuItem key={role.id} value={role.name}>
+                <MenuItem key={role.id} value={role.id}>
                   <Checkbox checked={userRole.indexOf(role.name) > -1} color="form"/>
                   <ListItemText primary={role.name} />
                 </MenuItem>

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\RolePermission;
 use App\Models\Permission;
+use App\Models\User;
+use Auth;
 use Validator;
 
 
@@ -16,8 +18,13 @@ class RoleController extends ApiController
     public function index(Request $request){
         try{
             $per_page = $request->per_page ? $request->per_page : 10;
-            
+
             $qry = Role::query();
+            if($this->is_super_admin()){
+                $qry->whereNull('user_id');
+            }else{
+                $qry->where('user_id', Auth::id());
+            }
             if (isset($request->search)) {
                 $qry->whereLike(['name', 'slug'], $request->search);
             }
@@ -34,9 +41,9 @@ class RoleController extends ApiController
 
             $roles = $qry->where('id', '>', 1)->paginate($per_page);
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Role lists',         
+                'message' => 'Role lists',
                 'data' =>  $roles,
             ]);
 
@@ -51,11 +58,11 @@ class RoleController extends ApiController
                 $role = Role::where('slug', $id)->first();
             }else{
                 $role = Role::find($id);
-            }            
+            }
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Show role',         
+                'message' => 'Show role',
                 'data' =>  $role,
             ]);
 
@@ -63,7 +70,7 @@ class RoleController extends ApiController
             return $this->errorResponse($e->getMessage());
         }
     }
-    
+
     public function store(Request $request){
         try{
             $rules = array(
@@ -77,9 +84,16 @@ class RoleController extends ApiController
                 return $this->respondValidationError('Fields Validation Failed.', $validator);
             }
 
+
+
             $role = new Role;
             $role->name = $request->name;
-            $role->slug = $request->slug;
+            if($this->is_super_admin()){
+                $role->slug = $request->slug;
+            }else{
+                $role->slug = $request->slug .'-'. Auth::id();
+                $role->user_id = Auth::id();
+            }
             $role->save();
 
             $permissions = Permission::all();
@@ -95,9 +109,9 @@ class RoleController extends ApiController
                 $rp->save();
             }
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Role save successfully',         
+                'message' => 'Role save successfully',
                 'data' =>  $role,
             ]);
 
@@ -127,9 +141,9 @@ class RoleController extends ApiController
             $role->slug = $request->slug;
             $role->save();
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Role update successfully',         
+                'message' => 'Role update successfully',
                 'data' =>  $role,
             ]);
 
@@ -156,9 +170,9 @@ class RoleController extends ApiController
             $role->status = $request->status;
             $role->save();
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Status changed successfully',         
+                'message' => 'Status changed successfully',
                 'data' =>  $role,
             ]);
 
@@ -172,14 +186,25 @@ class RoleController extends ApiController
             $role = Role::find($id);
             $role->delete();
 
-            return $this->response([  
+            return $this->response([
                 'status' => $this->getStatusCode(),
-                'message' => 'Role deleted successfully',         
+                'message' => 'Role deleted successfully',
                 'data' =>  $role,
             ]);
 
         } catch (Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
+    }
+
+    private function is_super_admin(){
+        $user = User::with('roles')->find(Auth::id());
+        $this->is_su = false;
+        foreach ($user->roles as $key => $role) {
+            if($role->id === 1){
+                $this->is_su = true;
+            }
+        }
+        return $this->is_su;
     }
 }

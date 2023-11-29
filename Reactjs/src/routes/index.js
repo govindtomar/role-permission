@@ -55,11 +55,11 @@ export default function Router() {
 
     {
       path: '/login',
-      element: isAuth == false ? <Login /> : <Navigate to="/" /> 
+      element: isAuth === false ? <Login /> : <Navigate to="/" /> 
     },
     {
       path: '/register',
-      element: isAuth == false ? <Register />  : <Navigate to="/" /> 
+      element: isAuth === false ? <Register />  : <Navigate to="/" /> 
     },
     {
       path: '/',

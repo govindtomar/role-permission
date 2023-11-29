@@ -43,6 +43,7 @@ export default function RolePermission(props) {
         control={<Checkbox
           checked={changePermission} 
           onChange={handlePermissionChange}
+          // disabled={permission.role_permissions.status ? false : true}
           />}
         label={permission.name}
         labelPlacement="end"

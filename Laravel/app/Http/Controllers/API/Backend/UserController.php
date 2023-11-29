@@ -53,8 +53,8 @@ class UserController extends ApiController
                 $user = User::where('uid', $id)
                     ->where('id', '!=', Auth::id())->first();
             }else{
-                $user = User::with('roles')->find($id);  
-            }                
+                $user = User::with('roles')->find($id);
+            }
 
             return $this->response([
                 'status' => $this->getStatusCode(),
@@ -69,7 +69,7 @@ class UserController extends ApiController
     public function showAuthUser(){
         try{
 
-            $user = auth::user(); 
+            $user = auth::user();
 
             return $this->response([
                 'status' => $this->getStatusCode(),
@@ -80,7 +80,7 @@ class UserController extends ApiController
             return $this->errorResponse($e->getMessage());
         }
     }
-    
+
     public function store(UserRequest $request){
         try{
 
@@ -92,7 +92,7 @@ class UserController extends ApiController
             $user->save();
 
             foreach ($request->user_roles as $key => $user_role) {
-                $role = Role::where('name', $user_role)->first();
+                $role = Role::where('id', $user_role)->first();
                 $user->roles()->attach($role->id);
             }
 
@@ -118,7 +118,7 @@ class UserController extends ApiController
 
             $roles = [];
             foreach ($request->user_roles as $key => $user_role) {
-                $roles[] = Role::where('name', $user_role)->first()->id;
+                $roles[] = Role::where('id', $user_role)->first()->id;
             }
 
             $user->roles()->sync($roles);
@@ -141,7 +141,7 @@ class UserController extends ApiController
             $user = User::find(auth()->user()->id);
             $user->name = $request->name;
             $user->email = $request->email;
-            
+
             foreach($request->files as $file){
                 $image = $file;
                 $fileInfo = $image->getClientOriginalName();

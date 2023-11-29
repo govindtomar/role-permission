@@ -129,14 +129,7 @@ export default function EditPermission() {
         <Grid item xs={7}>
           <RHFTextField 
             name="api" 
-            label="API" 
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  {permissionModule && permissionModule.module_api}
-                </InputAdornment>
-              ),
-            }} 
+            label="API"             
           />
         </Grid>
         <Grid item xs={4}>

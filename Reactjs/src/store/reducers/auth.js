@@ -11,42 +11,38 @@ const initialState = {
 export const auth = createSlice({
     name: 'auth',
     initialState ,
-    extraReducers: {
+    extraReducers: (builder) => {
         // Login Api
-        [login.pending]: (state, action) => {
+        builder.
+          addCase(login.pending, (state, action) => {
           state.loading = true;
-          console.log('pending')
-        },
-        [login.fulfilled]: (state, action) => {
-          state.loading = false;
-          localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-          localStorage.setItem("_token", action.payload.access_token);
-          state.user = action.payload;
-          console.log('fulfilled')
-        },
-        [login.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-          console.log('rejected')
-        },
+          }).
+          addCase(login.fulfilled, (state, action) => {
+            state.loading = false;
+            localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+            localStorage.setItem("_token", action.payload.access_token);
+            state.user = action.payload;
+          }).
+            addCase(login.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Register API
-        [register.pending]: (state, action) => {
-          state.loading = true;
-          console.log('pending')
-        },
-        [register.fulfilled]: (state, action) => {
-          state.loading = false;
-          localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
-          localStorage.setItem("_token", action.payload.access_token);
-          state.user = action.payload;
-          console.log('fulfilled')
-        },
-        [register.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-          console.log('rejected')
-        },
+        builder.
+          addCase(register.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(register.fulfilled, (state, action) => {
+            state.loading = false;
+            localStorage.setItem("profile", JSON.stringify({ ...action.payload }));
+            localStorage.setItem("_token", action.payload.access_token);
+            state.user = action.payload;
+          }).
+          addCase(register.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
     }
 })
 

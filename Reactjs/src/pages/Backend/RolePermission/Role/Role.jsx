@@ -39,7 +39,7 @@ export default function Role() {
     condition: null
   });
 
-  const { roles } = useSelector((state) => ({ ...state.role }));
+  const { roles } = useSelector((state) => state.role);
 
   useEffect(() => {
     const param = getSearchQueryParams(searchParams)

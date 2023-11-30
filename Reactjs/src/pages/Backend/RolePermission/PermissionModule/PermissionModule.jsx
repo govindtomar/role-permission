@@ -39,7 +39,7 @@ export default function PermissionModule() {
     condition: null
   });
 
-  const { permissionModules } = useSelector((state) => ({ ...state.permissionModule }));
+  const { permission_modules } = useSelector((state) => state.permission_module);
 
   useEffect(() => {
     const param = getSearchQueryParams(searchParams)
@@ -105,21 +105,21 @@ export default function PermissionModule() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {permissionModules.data && permissionModules.data.map((permissionModule) => (
-                <TableRow key={permissionModule.id}>
-                  <TableCell component="th" scope="row">{permissionModule.name}</TableCell>
-                  <TableCell align="left">{permissionModule.module_api}</TableCell>
+              {permission_modules.data && permission_modules.data.map((permission_module) => (
+                <TableRow key={permission_module.id}>
+                  <TableCell component="th" scope="row">{permission_module.name}</TableCell>
+                  <TableCell align="left">{permission_module.module_api}</TableCell>
                   <TableCell align="left">
                     <ActiveInactiveButton 
-                      onClick={() => setChangeStatusDialog({ status: true, id: permissionModule.id })}
-                      status={permissionModule.status}
+                      onClick={() => setChangeStatusDialog({ status: true, id: permission_module.id })}
+                      status={permission_module.status}
                     >
-                      {permissionModule.status ? "Active" : "Inactive"}
+                      {permission_module.status ? "Active" : "Inactive"}
                     </ActiveInactiveButton>
                   </TableCell>
                   <TableCell align="center">
                     <LinkButton 
-                      to={'/permission/'+permissionModule.id}
+                      to={'/permission/'+permission_module.id}
                       sx={{fontSize:'25px'}}
                     >
                       <Iconify icon="material-symbols-light:menu-book-outline" />
@@ -127,8 +127,8 @@ export default function PermissionModule() {
                   </TableCell> 
                   <TableCell align="right">
                     <ActionOptions 
-                      delete_id={permissionModule.id} 
-                      edit_url={`/permission-module/${permissionModule.id}/edit`} 
+                      delete_id={permission_module.id} 
+                      edit_url={`/permission-module/${permission_module.id}/edit`} 
                       deleteAction={deleteOptionAction}
                     />
                   </TableCell>
@@ -141,9 +141,9 @@ export default function PermissionModule() {
           rowsPerPageOptions={recordPerPage}
           onRowsPerPageChange={handleChangeRowsPerPage}
           component="div"
-          count={permissionModules.total}
-          rowsPerPage={permissionModules.per_page}
-          page={permissionModules.current_page - 1}
+          count={permission_modules.total}
+          rowsPerPage={permission_modules.per_page}
+          page={permission_modules.current_page - 1}
           onPageChange={handlePageChange}
         />
       </Card>

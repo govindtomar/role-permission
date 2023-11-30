@@ -1,13 +1,13 @@
 import axios from "axios";
 // const devEnv = process.env.NODE_ENV !== "production";
 
-// const { REACT_APP_DEV_API, REACT_APP_PROD_API } = process.env;
+// const { VITE_APP_DEV_API, VITE_APP_PROD_API } = process.env;
 
 // const API = axios.create({
-//   baseURL: `${devEnv ? REACT_APP_DEV_API : REACT_APP_PROD_API}`,
+//   baseURL: `${devEnv ? VITE_APP_DEV_API : VITE_APP_PROD_API}`,
 // });
 
-const API = axios.create({baseURL: `${process.env.REACT_APP_API_URL}/api`});
+const API = axios.create({baseURL: `${import.meta.env.VITE_APP_API_URL}/api`});
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem("_token")) {

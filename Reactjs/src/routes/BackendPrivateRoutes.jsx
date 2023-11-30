@@ -1,5 +1,4 @@
 import Dashboard from '../pages/Backend/Dashboard';
-import UserTest from '../pages/User'
 //User
 import AddUser from '../pages/Backend/User/AddUser'
 import User from '../pages/Backend/User/User'
@@ -25,10 +24,6 @@ import EditService from '../pages/Backend/Service/EditService'
 
 
 const BackendPrivateRoutes = [
-    {
-        path: 'user-test',
-        element: <UserTest />,
-    },
     {
         path: 'user/add',
         element: <AddUser />,

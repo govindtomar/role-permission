@@ -32,7 +32,7 @@ export default function EditService() {
     price: Yup.string().required('Price is required')
   });
 
-  const { service } = useSelector((state) => ({ ...state.service }));
+  const { service } = useSelector((state) => state.service);
 
   useEffect(()=>{
     const id = params.id

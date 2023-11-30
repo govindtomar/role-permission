@@ -49,7 +49,7 @@ export default function AddPermission() {
     dispatch(showPermissionModule({id}))
   }, [])
 
-  const { permissionModule } = useSelector((state) => ({ ...state.permissionModule }));
+  const { permissionModule } = useSelector((state) => state.permissionModule);
 
   useEffect(() => {
     if(permissionModule !== null){

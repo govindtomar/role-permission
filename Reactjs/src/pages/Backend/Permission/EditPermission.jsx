@@ -42,7 +42,7 @@ export default function EditPermission() {
 
   }
 
-  const { permission } = useSelector((state) => ({ ...state.permission }));
+  const { permission } = useSelector((state) => state.permission);
 
   const saveChanges = () => {
     

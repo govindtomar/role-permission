@@ -5,7 +5,6 @@ import roleReducer from './reducers/role'
 import permissionReducer from './reducers/permission'
 import permissionModuleReducer from './reducers/permission-module'
 import serviceReducer from './reducers/service'
-import loanTypeReducer from './reducers/loan-type'
 
 export const store = configureStore({
   reducer: {
@@ -13,8 +12,7 @@ export const store = configureStore({
     user: userReducer,
     role: roleReducer,
     permission: permissionReducer,
-    permissionModule: permissionModuleReducer,
-    service: serviceReducer,
-    loanType: loanTypeReducer    
+    permission_module: permissionModuleReducer,
+    service: serviceReducer   
   },
 })

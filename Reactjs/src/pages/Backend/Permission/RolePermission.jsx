@@ -23,8 +23,8 @@ import {
 export default function RolePermission() {
   const dispatch = useDispatch();
   const params = useParams();
-  const { role } = useSelector((state) => ({ ...state.role }));
-  const { permissions } = useSelector((state) => ({ ...state.permission }));
+  const { role } = useSelector((state) => state.role);
+  const { permissions } = useSelector((state) => state.permission);
   const permissionChanges = {};
 
   useEffect(() => {

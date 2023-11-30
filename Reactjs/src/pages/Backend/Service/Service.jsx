@@ -35,7 +35,7 @@ export default function Service() {
     condition: null
   });
 
-  const { services } = useSelector((state) => ({ ...state.service }));
+  const { services } = useSelector((state) => state.service);
 
   useEffect(() => {
     const param = "page="+searchParams.get('page')

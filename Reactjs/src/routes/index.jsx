@@ -17,7 +17,7 @@ import Register from '../pages/Auth/Register';
 
 // Routes
 
-import NotFound from '../pages/Page404';
+import NotFound from '../pages/Error/AccessDenied';
 import AccessDenied from './AccessDenied';
 
 

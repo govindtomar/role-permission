@@ -47,8 +47,8 @@ export default function EditUser() {
   const params = useParams();
   const [userRole, setUserRole] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
-  const { user } = useSelector((state) => ({ ...state.user }));
-  const { roles } = useSelector((state) => ({ ...state.role }));
+  const { user } = useSelector((state) => state.user);
+  const { roles } = useSelector((state) => state.role);
 
   const handleChangeRole = (event) => {
     const {

@@ -31,11 +31,11 @@ export default function ThemeProvider({ children }) {
   theme.components = componentsOverride(theme);
 
   return (
-    <StyledEngineProvider injectFirst>
+    // <StyledEngineProvider injectFirst>
       <MUIThemeProvider theme={theme}>
         <CssBaseline />
         {children}
       </MUIThemeProvider>
-    </StyledEngineProvider>
+    // </StyledEngineProvider>
   );
 }

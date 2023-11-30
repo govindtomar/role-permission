@@ -53,6 +53,20 @@ export const getPermissions = createAsyncThunk(
   }
 );
 
+export const getAllPermissions = createAsyncThunk(
+  "permission/all",
+  async ({ }, { rejectWithValue }) => {
+      try {
+          const response = await API.get("/admin/permission/all");
+          if (response.data.status === 200) {
+              return response.data;
+          }
+      } catch (err) {
+          return rejectWithValue(err.response.data);
+      }
+  }
+);
+
 export const showPermission = createAsyncThunk(
   "permission/show",
   async ({ id, by }, { rejectWithValue }) => {

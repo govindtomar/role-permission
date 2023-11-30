@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { 
   addService, 
   getServices, 
+  getAllServices,
   serviceStatus, 
   deleteService, 
   showService, 
@@ -12,7 +13,7 @@ const initialState = {
     services: {
         data : null,
         total : 1,
-        per_page : 1,
+        per_page : 10,
         current_page : 1
     },
     service: null,
@@ -23,92 +24,112 @@ const initialState = {
 export const service = createSlice({
     name: 'service',
     initialState ,
-    extraReducers: {
+    extraReducers: (builder) => {
         // Service Add Api
-        [addService.pending]: (state, action) => {
+      builder
+        .addCase(addService.pending, (state) => {
           state.loading = true;
-        },
-        [addService.fulfilled]: (state, action) => {
+        })
+        .addCase(addService.fulfilled, (state, action) => {
           state.loading = false;
           state.service = action.payload;
-        },
-        [addService.rejected]: (state, action) => {
+        })
+        .addCase(addService.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload.message;
-        },
+        });
 
         // Get Service Api
-        [getServices.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [getServices.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.services = action.payload;
-        },
-        [getServices.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder
+          .addCase(getServices.pending, (state, action) => {
+            state.loading = true;
+          })
+          .addCase(getServices.fulfilled, (state, action) => {
+            state.loading = false;
+            state.services = action.payload;
+          })
+          .addCase(getServices.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
+
+        // // Get All Service Api
+        builder
+          .addCase(getAllServices.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(getAllServices.fulfilled, (state, action) => {
+            state.loading = false;
+            state.services = action.payload;
+          }).
+          addCase(getAllServices.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Show Service Api
-        [showService.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [showService.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.service = action.payload.data;
-        },
-        [showService.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(showService.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(showService.fulfilled, (state, action) => {
+            state.loading = false;
+            state.service = action.payload.data;
+          }).
+          addCase(showService.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Edit Service Api
-        [editService.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [editService.fulfilled]: (state, action) => {
-          state.loading = false;
-          // state.service = action.payload.data;
-        },
-        [editService.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(editService.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(editService.fulfilled, (state, action) => {
+            state.loading = false;
+            // state.service = action.payload.data;
+          }).
+          addCase(editService.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Change Service Status Api
-        [serviceStatus.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [serviceStatus.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.services.data.forEach((service, index) => {
-            if(service.id === action.payload.data.id){
-              state.services.data[index].status = action.payload.data.status;
-            }
-          })
-        },
-        [serviceStatus.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(serviceStatus.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(serviceStatus.fulfilled, (state, action) => {
+            state.loading = false;
+            state.services.data.forEach((service, index) => {
+              if(service.id === action.payload.data.id){
+                state.services.data[index].status = action.payload.data.status;
+              }
+            })
+          }).
+          addCase(serviceStatus.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Delete Service Api
-        [deleteService.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [deleteService.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.services.data.forEach((service, index) => {
-            if(service.id === action.payload.data.id){
-              state.services.data.splice(index, 1)
-            }
-          })
-        },
-        [deleteService.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(deleteService.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(deleteService.fulfilled, (state, action) => {
+            state.loading = false;
+            state.services.data.forEach((service, index) => {
+              if(service.id === action.payload.data.id){
+                state.services.data.splice(index, 1)
+              }
+            })
+          }).
+          addCase(deleteService.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
         
     }
 })

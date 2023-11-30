@@ -46,7 +46,7 @@ export default function AddUser() {
   const [showPassword, setShowPassword] = useState(false);
 
   
-  const { roles } = useSelector((state) => ({ ...state.role }));
+  const { roles } = useSelector((state) => state.role);
 
   const UserSchema = Yup.object().shape({
     name: Yup.string().required('User is required'),

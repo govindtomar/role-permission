@@ -34,7 +34,7 @@ export default function EditPermissionModule() {
     module_api: Yup.string().required('Permission Module API is required')
   });
 
-  const { permissionModule } = useSelector((state) => ({ ...state.permissionModule }));
+  const { permission_module } = useSelector((state) => state.permission_module);
 
   useEffect(()=>{
     const id = params.id
@@ -42,12 +42,12 @@ export default function EditPermissionModule() {
   }, [params])
 
   useEffect(()=>{
-    if(permissionModule !== null){
-      setValue("id", permissionModule.id)
-      setValue("name", permissionModule.name)
-      setValue("module_api", permissionModule.module_api)
+    if(permission_module !== null){
+      setValue("id", permission_module.id)
+      setValue("name", permission_module.name)
+      setValue("module_api", permission_module.module_api)
     }
-  }, [permissionModule])
+  }, [permission_module])
 
   const defaultValues = {
     name: '',

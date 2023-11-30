@@ -53,6 +53,20 @@ export const getServices = createAsyncThunk(
   }
 );
 
+export const getAllServices = createAsyncThunk(
+  "service/all",
+  async ({ }, { rejectWithValue }) => {
+      try {
+          const response = await API.get("/admin/service/all");
+          if (response.data.status === 200) {
+              return response.data;
+          }
+      } catch (err) {
+          return rejectWithValue(err.response.data);
+      }
+  }
+);
+
 export const showService = createAsyncThunk(
   "service/show",
   async ({ id, by }, { rejectWithValue }) => {

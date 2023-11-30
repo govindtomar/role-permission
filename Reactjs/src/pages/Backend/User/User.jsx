@@ -42,7 +42,7 @@ export default function User() {
     condition: null
   });
 
-  const { users } = useSelector((state) => ({ ...state.user }));
+  const { users } = useSelector((state) => state.user);
 
   useEffect(() => {
     const param = getSearchQueryParams(searchParams)

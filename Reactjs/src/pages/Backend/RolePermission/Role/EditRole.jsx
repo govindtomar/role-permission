@@ -34,7 +34,7 @@ export default function EditRole() {
     slug: Yup.string().required('Slug is required')
   });
 
-  const { role } = useSelector((state) => ({ ...state.role }));
+  const { role } = useSelector((state) => state.role);
 
   useEffect(()=>{
     const id = params.id

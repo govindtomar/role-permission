@@ -53,6 +53,20 @@ export const getRoles = createAsyncThunk(
   }
 );
 
+export const getAllRoles = createAsyncThunk(
+  "post/all",
+  async ({ }, { rejectWithValue }) => {
+      try {
+          const response = await API.get("/admin/role/all");
+          if (response.data.status === 200) {
+              return response.data;
+          }
+      } catch (err) {
+          return rejectWithValue(err.response.data);
+      }
+  }
+);
+
 export const showRole = createAsyncThunk(
   "role/show",
   async ({ id, by }, { rejectWithValue }) => {

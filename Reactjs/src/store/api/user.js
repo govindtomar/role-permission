@@ -53,6 +53,21 @@ export const getUsers = createAsyncThunk(
   }
 );
 
+
+export const getAllUsers = createAsyncThunk(
+  "user/all",
+  async ({ }, { rejectWithValue }) => {
+      try {
+          const response = await API.get("/admin/user/all");
+          if (response.data.status === 200) {
+              return response.data;
+          }
+      } catch (err) {
+          return rejectWithValue(err.response.data);
+      }
+  }
+);
+
 export const showUser = createAsyncThunk(
   "user/show",
   async ({ id, by }, { rejectWithValue }) => {

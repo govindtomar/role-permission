@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { 
   addUser, 
   getUsers, 
+  getAllUsers,
   userStatus, 
   deleteUser, 
   showUser, 
@@ -12,7 +13,7 @@ const initialState = {
     users: {
         data : null,
         total : 1,
-        per_page : 1,
+        per_page : 10,
         current_page : 1
     },
     user: null,
@@ -23,92 +24,112 @@ const initialState = {
 export const user = createSlice({
     name: 'user',
     initialState ,
-    extraReducers: {
+    extraReducers: (builder) => {
         // User Add Api
-        [addUser.pending]: (state, action) => {
+      builder
+        .addCase(addUser.pending, (state) => {
           state.loading = true;
-        },
-        [addUser.fulfilled]: (state, action) => {
+        })
+        .addCase(addUser.fulfilled, (state, action) => {
           state.loading = false;
           state.user = action.payload;
-        },
-        [addUser.rejected]: (state, action) => {
+        })
+        .addCase(addUser.rejected, (state, action) => {
           state.loading = false;
           state.error = action.payload.message;
-        },
+        });
 
         // Get User Api
-        [getUsers.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [getUsers.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.users = action.payload;
-        },
-        [getUsers.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder
+          .addCase(getUsers.pending, (state, action) => {
+            state.loading = true;
+          })
+          .addCase(getUsers.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users = action.payload;
+          })
+          .addCase(getUsers.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
+
+        // // Get All User Api
+        builder
+          .addCase(getAllUsers.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(getAllUsers.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users = action.payload;
+          }).
+          addCase(getAllUsers.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Show User Api
-        [showUser.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [showUser.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.user = action.payload.data;
-        },
-        [showUser.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(showUser.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(showUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user = action.payload.data;
+          }).
+          addCase(showUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Edit User Api
-        [editUser.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [editUser.fulfilled]: (state, action) => {
-          state.loading = false;
-          // state.user = action.payload.data;
-        },
-        [editUser.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(editUser.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(editUser.fulfilled, (state, action) => {
+            state.loading = false;
+            // state.user = action.payload.data;
+          }).
+          addCase(editUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Change User Status Api
-        [userStatus.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [userStatus.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.users.data.forEach((user, index) => {
-            if(user.id === action.payload.data.id){
-              state.users.data[index].status = action.payload.data.status;
-            }
-          })
-        },
-        [userStatus.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(userStatus.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(userStatus.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users.data.forEach((user, index) => {
+              if(user.id === action.payload.data.id){
+                state.users.data[index].status = action.payload.data.status;
+              }
+            })
+          }).
+          addCase(userStatus.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
 
         // Delete User Api
-        [deleteUser.pending]: (state, action) => {
-          state.loading = true;
-        },
-        [deleteUser.fulfilled]: (state, action) => {
-          state.loading = false;
-          state.users.data.forEach((user, index) => {
-            if(user.id === action.payload.data.id){
-              state.users.data.splice(index, 1)
-            }
-          })
-        },
-        [deleteUser.rejected]: (state, action) => {
-          state.loading = false;
-          state.error = action.payload.message;
-        },
+        builder.
+          addCase(deleteUser.pending, (state, action) => {
+            state.loading = true;
+          }).
+          addCase(deleteUser.fulfilled, (state, action) => {
+            state.loading = false;
+            state.users.data.forEach((user, index) => {
+              if(user.id === action.payload.data.id){
+                state.users.data.splice(index, 1)
+              }
+            })
+          }).
+          addCase(deleteUser.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.payload.message;
+          });
         
     }
 })

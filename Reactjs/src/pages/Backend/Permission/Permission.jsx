@@ -38,7 +38,7 @@ export default function Permission() {
     condition: null
   });
 
-  const { permissions } = useSelector((state) => ({ ...state.permission }));
+  const { permissions } = useSelector((state) => state.permission);
 
   useEffect(() => {
     const param = getSearchQueryParams(searchParams)

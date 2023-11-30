@@ -51,13 +51,13 @@ export default function EditPermission() {
     dispatch(showPermission({id}))
   }, [])
 
-  const { permissionModule } = useSelector((state) => ({ ...state.permissionModule }));
-  const { permission } = useSelector((state) => ({ ...state.permission }));
+  const { permission_module } = useSelector((state) => state.permission_module);
+  const { permission } = useSelector((state) => state.permission);
 
   useEffect(() => {
-    if(permissionModule !== null){
-      setValue("permission_module_id", permissionModule.id)
-      setValue("permission_module", permissionModule.name)
+    if(permission_module !== null){
+      setValue("permission_module_id", permission_module.id)
+      setValue("permission_module", permission_module.name)
     }
     if(permission !== null){
       setValue("id", permission.id)
@@ -69,7 +69,7 @@ export default function EditPermission() {
       setApiMethod(permission.method)
     }
     console.log(permission)
-  }, [permissionModule, permission])
+  }, [permission_module, permission])
 
   const defaultValues = {
     name: '',

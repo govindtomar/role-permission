@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { editService, showService } from 'src/store/api/service';
-import { slugConvertor } from 'src/helpers/StringHelper';
+import { slugConvertor } from 'src/resources/helpers/StringHelper';
 // @mui
 import {  
   Stack, 

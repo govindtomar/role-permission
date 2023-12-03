@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 // material
 import { alpha, styled } from '@mui/material/styles';
 import { Box, Stack, AppBar, Toolbar, IconButton, Container } from '@mui/material';
-import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP, WEB_WIDTH} from 'src/constants/theme'
+import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP, WEB_WIDTH} from 'src/resources/constants/theme'
 // components
 import Iconify from '../../components/Iconify';
 //

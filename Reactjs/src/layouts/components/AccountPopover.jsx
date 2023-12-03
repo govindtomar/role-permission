@@ -11,7 +11,7 @@ import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@
 import MenuPopover from '../../components/MenuPopover';
 // mocks_
 import account from '../../_mock/account';
-import { IsAuth, User } from 'src/helpers/RouteHelper';
+import { IsAuth, User } from 'src/resources/helpers/RouteHelper';
 
 // ----------------------------------------------------------------------
 

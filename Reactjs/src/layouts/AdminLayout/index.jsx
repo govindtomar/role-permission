@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 //
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import { APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/constants/theme'
+import { APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/resources/constants/theme'
 
 
 // ----------------------------------------------------------------------

@@ -1,16 +1,13 @@
-import React, { Fragment, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { styled, alpha } from '@mui/material/styles';
 import { getUsers, deleteUser, userStatus} from 'src/store/api/user';
-import { ActiveInactiveButton, LinkButton } from 'src/components/Button';
+import { ActiveInactiveButton } from 'src/components/Button';
 import ActionOptions from 'src/components/ActionOptions'
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import ConfirmDeleteDialog from 'src/components/ConfirmDeleteDialog'
 import ChangeStatusDialog from 'src/components/ChangeStatusDialog';
-import Iconify from 'src/components/Iconify';
-import palette from 'src/theme/palette';
 import BreadcrumbNavigator from 'src/components/BreadcrumbNavigator';
-import { getSearchQueryParams, setSearchQueryParams, recordPerPage } from 'src/helpers/SearchHelper';
+import { getSearchQueryParams, setSearchQueryParams, recordPerPage } from 'src/resources/helpers/SearchHelper';
 import { 
   Table,
   TableBody,
@@ -19,19 +16,15 @@ import {
   TablePagination,
   TableHead,
   TableRow,
-  Paper, 
-  Container, 
-  Stack, 
-  Typography,
   Card
 } from '@mui/material';
 import {SearchInTable} from 'src/components/Table';
+import PageLayout from 'src/components/PageLayout';
 
 export default function User() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  const [url, setUrl] = useState('');
   const [openDialog, setOpenDialog] = useState({
     status: false, 
     id: null 
@@ -90,7 +83,7 @@ export default function User() {
 
 
   return (
-    <Fragment>
+    <PageLayout title="User List">
       <BreadcrumbNavigator
         currentPage="User List" 
         rightButton={{name: "add user", link: "/user/add"}} 
@@ -168,6 +161,6 @@ export default function User() {
         setOpenDialog={setChangeStatusDialog}
         confirmDialog={changeStatusFunc}
       />
-    </Fragment>
+    </PageLayout>
   );
 }

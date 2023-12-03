@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import  API from "../../config/api";
+import  API from "../api";
 import { toast } from "react-toastify";
 
 

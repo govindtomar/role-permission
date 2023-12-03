@@ -16,7 +16,7 @@ import PermissionModule from '../pages/Backend/RolePermission/PermissionModule/P
 import AddPermissionModule from '../pages/Backend/RolePermission/PermissionModule/AddPermissionModule'
 import EditPermissionModule from '../pages/Backend/RolePermission/PermissionModule/EditPermissionModule'
 //Role Permission
-import RolePermission from 'src/pages/Backend/Permission/RolePermission';
+import RolePermission from 'src/pages/Backend/RolePermission/RolePermission';
 //Service
 import AddService from '../pages/Backend/Service/AddService'
 import Service from '../pages/Backend/Service/Service'

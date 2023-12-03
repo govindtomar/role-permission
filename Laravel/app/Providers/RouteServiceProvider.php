@@ -34,7 +34,7 @@ class RouteServiceProvider extends ServiceProvider
             /**********************************************************
              *
              *          API Routes
-             * 
+             *
              * *******************************************************/
 
             Route::middleware('api')
@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('api')
                 ->prefix('api/auth')
-                ->group(base_path('routes/api/auth.php'));
+                ->group(base_path('routes/api/auth-api.php'));
 
             Route::middleware('api')
                 ->prefix('api')
@@ -51,13 +51,13 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('api')
                 ->prefix('api')
-                ->group(base_path('routes/api/role-permission.php'));
+                ->group(base_path('routes/api/role-permission-api.php'));
 
 
             /********************************************************
-             * 
+             *
              *      Web Routes
-             * 
+             *
              * *******************************************************/
 
 

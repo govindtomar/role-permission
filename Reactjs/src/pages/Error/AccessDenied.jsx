@@ -1,11 +1,7 @@
 import { Link as RouterLink } from 'react-router-dom';
-// @mui
 import { styled } from '@mui/material/styles';
-import { Button, Typography, Container, Box } from '@mui/material';
-// components
-import Page from 'src/components/Page';
-
-// ----------------------------------------------------------------------
+import { Button, Typography, Container } from '@mui/material';
+import Page from 'src/components/PageLayout';
 
 const ContentStyle = styled('div')(({ theme }) => ({
   maxWidth: 480,
@@ -17,11 +13,9 @@ const ContentStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0)
 }));
 
-// ----------------------------------------------------------------------
-
-export default function Page404() {
+export default function AccessDenied() {
   return (
-    <Page title="404 Page Not Found">
+    <Page title="Access Denied">
       <Container>
         <ContentStyle sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>

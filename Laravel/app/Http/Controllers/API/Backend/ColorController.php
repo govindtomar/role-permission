@@ -1,9 +1,9 @@
 <?php
-namespace App\Http\Controllers\V1\Admin;
+namespace App\Http\Controllers\API\Backend;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\V1\ColorRequest;
+use App\Http\Requests\API\Backend\ColorRequest;
 use GovindTomar\CrudGenerator\Helpers\CRUDHelper;
 use App\Models\Color;
 use DB;
@@ -46,12 +46,12 @@ class ColorController extends ApiController
     public function indexAll()
     {
         try{
-            $colors = Color::all();  
+            $colors = Color::all();
             return $this->response([
                 'status' => $this->getStatusCode(),
                 'message' => 'Color lists',
                 'data' =>  $colors,
-            ]);          
+            ]);
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage());
         }
@@ -78,12 +78,12 @@ class ColorController extends ApiController
     public function show($id)
     {
         try{
-            $color = Color::find($id);  
+            $color = Color::find($id);
             return $this->response([
                 'status' => $this->getStatusCode(),
                 'message' => 'Show Color',
                 'data' =>  $color,
-            ]);          
+            ]);
         }catch(\Exception $e){
             return $this->errorResponse($e->getMessage());
         }
@@ -97,7 +97,7 @@ class ColorController extends ApiController
 			$color->slug  =  $request->slug;
 			$color->code  =  $request->code;
             $color->save();
-            
+
             return $this->response([
                 'status' => $this->getStatusCode(),
                 'message' => 'Update Color',
@@ -123,7 +123,7 @@ class ColorController extends ApiController
             return $this->errorResponse($e->getMessage());
         }
     }
-    
+
 	public function status(Request $request){
         try{
     		$color = Color::find($request->id);

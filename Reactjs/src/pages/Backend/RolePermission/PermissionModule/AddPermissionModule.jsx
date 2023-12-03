@@ -1,75 +1,83 @@
-import React, {Fragment} from 'react'
-import * as Yup from 'yup';
-import {useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addPermissionModule } from 'src/store/api/permission-module';
-import { SaveButton } from 'src/components/Button'
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { FormProvider, RHFTextField, RHFCheckbox } from 'src/components/hook-form';
-import BreadcrumbNavigator from 'src/components/BreadcrumbNavigator'
-// material
-import {
-  Grid,
-} from '@mui/material';
-
-// ----------------------------------------------------------------------
+import React from "react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addPermissionModule } from "src/store/api/permission-module";
+import { SaveButton } from "src/components/Button";
+import FormProvider from "src/components/FormProvider";
+import BreadcrumbNavigator from "src/components/BreadcrumbNavigator";
+import { Grid, TextField } from "@mui/material";
+import PageLayout from "src/components/PageLayout";
 
 export default function AddPermissionModule() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const PermissionModuleSchema = Yup.object().shape({
-    name: Yup.string().required('Permission Module is required'),
-    module_api: Yup.string().required('Route is required')
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      module_api: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("Permission Module is required"),
+      module_api: Yup.string().required("Permission Module API is required"),
+    }),
+    onSubmit: (formValue) => {
+      dispatch(addPermissionModule({ formValue, navigate }));
+    },
   });
 
-  const defaultValues = {
-    name: '',
-    module_api: '',
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(PermissionModuleSchema),
-    defaultValues,
-  });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const onSubmit = (formValue) => {
-    dispatch(addPermissionModule({formValue, navigate}))
-  };
   const breadcrumbNavigate = [
     {
-      name : "Permission Module",
-      link :  "/permission-module"
-    }
-  ]
+      name: "Permission Module",
+      link: "/permission-module",
+    },
+  ];
 
   return (
-    <Fragment >
-      <BreadcrumbNavigator 
-        navigate={breadcrumbNavigate} 
+    <PageLayout title="Add New Permission Module">
+      <BreadcrumbNavigator
+        navigate={breadcrumbNavigate}
         currentPage="Add Permission Module"
       />
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-          <Grid container spacing={3}>
-            <Grid item xs={7}>
-              <RHFTextField name="name" label="Permission Module Name" />
-            </Grid>
-            <Grid item xs={7}>
-              <RHFTextField name="module_api" label="Permission Module API" />
-            </Grid>        
-            <Grid item xs={6}>
-              <SaveButton type="submit">
-                Save
-              </SaveButton>
-            </Grid>
-          </Grid> 
+      <FormProvider onSubmit={formik.handleSubmit}>
+        <Grid item xs={7}>
+          <TextField
+            error={Boolean(formik.touched.name && formik.errors.name)}
+            fullWidth
+            helperText={formik.touched.name && formik.errors.name}
+            label="Permission Module Name"
+            margin="normal"
+            name="name"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            variant="outlined"
+            color="form"
+          />
+        </Grid>
+        <Grid item xs={7}>
+          <TextField
+            error={Boolean(
+              formik.touched.module_api && formik.errors.module_api
+            )}
+            fullWidth
+            helperText={formik.touched.module_api && formik.errors.module_api}
+            label="Permission Module API"
+            margin="normal"
+            name="module_api"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.module_api}
+            variant="outlined"
+            color="form"
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <SaveButton type="submit">Save</SaveButton>
+        </Grid>
       </FormProvider>
-    </Fragment>
+    </PageLayout>
   );
 }

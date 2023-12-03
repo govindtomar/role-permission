@@ -20,12 +20,12 @@ import {
   ListItemButton,
 } from '@mui/material';
 // utils
-import { fToNow } from '../../utils/formatTime';
+import { fToNow } from '../../resources/utils/formatTime';
 // components
 import Iconify from '../../components/Iconify';
 import Scrollbar from '../../components/Scrollbar';
 import MenuPopover from '../../components/MenuPopover';
-import { IsAuth } from 'src/helpers/RouteHelper';
+import { IsAuth } from 'src/resources/helpers/RouteHelper';
 
 // ----------------------------------------------------------------------
 

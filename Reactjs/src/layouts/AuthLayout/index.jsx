@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 // material
 import { styled } from '@mui/material/styles';
-import { APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/constants/theme'
+import { APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/resources/constants/theme'
 
 
 // ----------------------------------------------------------------------

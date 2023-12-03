@@ -1,22 +1,13 @@
 import * as Yup from "yup";
-import { Fragment } from "react";
+import { useFormik } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
-// form
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-
 import { useSelector, useDispatch } from "react-redux";
 import { editUser, showUser } from "src/store/api/user";
 import { getRoles } from "src/store/api/role";
-import { slugConvertor } from "src/helpers/StringHelper";
 import Iconify from "src/components/Iconify";
 import BreadcrumbNavigator from "src/components/BreadcrumbNavigator";
 // @mui
 import {
-  Card,
-  Container,
-  Typography,
-  Button,
   Grid,
   IconButton,
   InputAdornment,
@@ -29,17 +20,12 @@ import {
   ListItemText,
   Checkbox,
   Chip,
+  TextField,
 } from "@mui/material";
-// components
-import {
-  FormProvider,
-  RHFTextField,
-  RHFCheckbox,
-} from "src/components/hook-form";
+import FormProvider from "src/components/FormProvider";
 import { useEffect, useState } from "react";
 import { SaveButton } from "src/components/Button";
-import { INNER_CONTAINER_HEIGHT } from "src/constants/theme";
-// ----------------------------------------------------------------------
+import PageLayout from 'src/components/PageLayout';
 
 export default function EditUser() {
   const dispatch = useDispatch();
@@ -57,12 +43,6 @@ export default function EditUser() {
     setUserRole(typeof value === "string" ? value.split(",") : value);
   };
 
-  const UserSchema = Yup.object().shape({
-    name: Yup.string().required("User is required"),
-    email: Yup.string().required("Email is required"),
-    phone: Yup.string().required("Phone is required"),
-  });
-
   useEffect(() => {
     const id = params.id;
     dispatch(showUser({ id }));
@@ -70,10 +50,12 @@ export default function EditUser() {
 
   useEffect(() => {
     if (user !== null) {
-      setValue("id", user.id);
-      setValue("name", user.name);
-      setValue("email", user.email);
-      setValue("phone", user.phone ?? "");
+      formik.setValues({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      });
 
       dispatch(getRoles({}));
       const value = [];
@@ -84,28 +66,22 @@ export default function EditUser() {
     }
   }, [user]);
 
-  const defaultValues = {
-    name: "",
-    email: "",
-    phone: "",
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(UserSchema),
-    defaultValues,
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("User is required"),
+      email: Yup.string().required("Email is required"),
+      phone: Yup.string().required("Phone is required"),
+    }),
+    onSubmit: (formValue) => {
+      formValue.user_roles = userRole;
+      dispatch(editUser({ formValue, navigate }));
+    },
   });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-    setValue,
-  } = methods;
-
-  const onSubmit = (formValue) => {
-    // formValue.slug = slugConvertor(formValue.name)
-    formValue.user_roles = userRole;
-    dispatch(editUser({ formValue, navigate }));
-  };
 
   const breadcrumbNavigate = [
     {
@@ -115,21 +91,88 @@ export default function EditUser() {
   ];
 
   return (
-    <Fragment>
+    <PageLayout title="Edit User">
       <BreadcrumbNavigator
         navigate={breadcrumbNavigate}
         currentPage="Edit User"
       />
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-        <Grid container spacing={3}>
-          <Grid item xs={9}>
-            <RHFTextField name="name" label="Name" />
+      <FormProvider onSubmit={formik.handleSubmit}>
+          <Grid item xs={12}>
+            <TextField
+              error={Boolean(formik.touched.name && formik.errors.name)}
+              fullWidth
+              helperText={formik.touched.name && formik.errors.name}
+              label="Color Name"
+              margin="normal"
+              name="name"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.name}
+              variant="outlined"
+              color="form"
+            />
           </Grid>
-          <Grid item xs={6}>
-            <RHFTextField name="email" label="E-mail Address" />
+          <Grid item xs={7}>
+            <TextField
+              error={Boolean(formik.touched.email && formik.errors.email)}
+              fullWidth
+              helperText={formik.touched.email && formik.errors.email}
+              label="E-mail Address"
+              margin="normal"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.email}
+              variant="outlined"
+              color="form"
+            />
           </Grid>
-          <Grid item xs={4}>
-            <RHFTextField name="phone" label="Phone" />
+          <Grid item xs={5}>
+            <TextField
+              error={Boolean(formik.touched.phone && formik.errors.phone)}
+              fullWidth
+              helperText={formik.touched.phone && formik.errors.phone}
+              label="Phone"
+              margin="normal"
+              name="phone"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.phone}
+              variant="outlined"
+              color="form"
+            />
+          </Grid>
+          <Grid item xs={7}>
+            <TextField
+              error={Boolean(formik.touched.password && formik.errors.password)}
+              fullWidth
+              helperText={formik.touched.password && formik.errors.password}
+              label="Password"
+              margin="normal"
+              name="password"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              value={formik.values.password}
+              variant="outlined"
+              color="form"
+              type={showPassword ? "text" : "password"}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={() => setShowPassword(!showPassword)}
+                      edge="end"
+                    >
+                      <Iconify
+                        icon={
+                          showPassword ? "eva:eye-fill" : "eva:eye-off-fill"
+                        }
+                      />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Grid>
           <Grid item xs={7}>
             <FormControl sx={{ width: "100%" }}>
@@ -176,8 +219,7 @@ export default function EditUser() {
           <Grid item xs={7}>
             <SaveButton type="submit">Save</SaveButton>
           </Grid>
-        </Grid>
       </FormProvider>
-    </Fragment>
+    </PageLayout>
   );
 }

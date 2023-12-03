@@ -1,25 +1,16 @@
-import * as Yup from 'yup';
-import { useState, useEffect, Fragment } from 'react';
-import { useNavigate } from 'react-router-dom';
-// form
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-
-import { useSelector, useDispatch } from 'react-redux';
-import { addUser } from 'src/store/api/user';
-import { getRoles } from 'src/store/api/role';
-import { SaveButton } from 'src/components/Button'
-import { slugConvertor } from 'src/helpers/StringHelper';
-import Iconify from 'src/components/Iconify';
-
-// @mui
-import {  
-  Stack, 
-  Container,
-  Typography,
-  Button,
+import * as Yup from "yup";
+import { useFormik } from "formik";
+import { useState, useEffect, Fragment } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser } from "src/store/api/user";
+import { getRoles } from "src/store/api/role";
+import { SaveButton } from "src/components/Button";
+import { slugConvertor } from "src/resources/helpers/StringHelper";
+import Iconify from "src/components/Iconify";
+import {
   Grid,
-  IconButton, 
+  IconButton,
   InputAdornment,
   InputLabel,
   Select,
@@ -29,15 +20,12 @@ import {
   FormControl,
   ListItemText,
   Checkbox,
-  Chip
-  
-
-} from '@mui/material';
-// components
-import BreadcrumbNavigator from 'src/components/BreadcrumbNavigator'
-
-import { FormProvider, RHFTextField, RHFCheckbox } from 'src/components/hook-form';
-// ----------------------------------------------------------------------
+  Chip,
+  TextField,
+} from "@mui/material";
+import BreadcrumbNavigator from "src/components/BreadcrumbNavigator";
+import FormProvider from "src/components/FormProvider";
+import PageLayout from "src/components/PageLayout";
 
 export default function AddUser() {
   const dispatch = useDispatch();
@@ -45,87 +33,121 @@ export default function AddUser() {
   const [userRole, setUserRole] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
 
-  
   const { roles } = useSelector((state) => state.role);
 
-  const UserSchema = Yup.object().shape({
-    name: Yup.string().required('User is required'),
-    email: Yup.string().required('E-mail is required'),
-    password: Yup.string().required('Password is required')
-  });
-
   useEffect(() => {
-    dispatch(getRoles({}))
-  }, [])
+    dispatch(getRoles({}));
+  }, []);
+
   const handleChangeRole = (event) => {
     const {
       target: { value },
     } = event;
-    console.log(value)
-    setUserRole(
-      // On autofill we get a the stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-    console.log(value)
+    setUserRole(typeof value === "string" ? value.split(",") : value);
   };
 
-  const defaultValues = {
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
-  };
-
-  const methods = useForm({
-    resolver: yupResolver(UserSchema),
-    defaultValues,
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      phone: "",
+      password: "",
+    },
+    validationSchema: Yup.object({
+      name: Yup.string().required("User is required"),
+      email: Yup.string().required("E-mail is required"),
+      password: Yup.string().required("Password is required"),
+    }),
+    onSubmit: (formValue) => {
+      formValue.slug = slugConvertor(formValue.name);
+      formValue.user_roles = userRole;
+      dispatch(addUser({ formValue, navigate }));
+    },
   });
-
-  const {
-    handleSubmit,
-    formState: { isSubmitting },
-  } = methods;
-
-  const onSubmit = (formValue) => {
-    formValue.slug = slugConvertor(formValue.name)
-    formValue.user_roles = userRole
-    dispatch(addUser({formValue, navigate}))
-  };
 
   const breadcrumbNavigate = [
     {
-      name : "user",
-      link :  "/user"
-    }
-  ]
+      name: "user",
+      link: "/user",
+    },
+  ];
 
   return (
-    <Fragment >
-      <BreadcrumbNavigator 
-        navigate={breadcrumbNavigate} 
+    <PageLayout title="Add New User">
+      <BreadcrumbNavigator
+        navigate={breadcrumbNavigate}
         currentPage="Add User"
       />
-      <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
-      <Grid container spacing={3}>
+      <FormProvider onSubmit={formik.handleSubmit}>
         <Grid item xs={12}>
-          <RHFTextField name="name" label="Name" />
+          <TextField
+            error={Boolean(formik.touched.name && formik.errors.name)}
+            fullWidth
+            helperText={formik.touched.name && formik.errors.name}
+            label="Color Name"
+            margin="normal"
+            name="name"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.name}
+            variant="outlined"
+            color="form"
+          />
         </Grid>
         <Grid item xs={7}>
-          <RHFTextField name="email" label="E-mail Address" type="email" />
+          <TextField
+            error={Boolean(formik.touched.email && formik.errors.email)}
+            fullWidth
+            helperText={formik.touched.email && formik.errors.email}
+            label="E-mail Address"
+            margin="normal"
+            name="email"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.email}
+            variant="outlined"
+            color="form"
+          />
         </Grid>
         <Grid item xs={5}>
-          <RHFTextField name="phone" label="Phone" />
+          <TextField
+            error={Boolean(formik.touched.phone && formik.errors.phone)}
+            fullWidth
+            helperText={formik.touched.phone && formik.errors.phone}
+            label="Phone"
+            margin="normal"
+            name="phone"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.phone}
+            variant="outlined"
+            color="form"
+          />
         </Grid>
         <Grid item xs={7}>
-          <RHFTextField
-            name="password"
+          <TextField
+            error={Boolean(formik.touched.password && formik.errors.password)}
+            fullWidth
+            helperText={formik.touched.password && formik.errors.password}
             label="Password"
-            type={showPassword ? 'text' : 'password'}
+            margin="normal"
+            name="password"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.password}
+            variant="outlined"
+            color="form"
+            type={showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
-                    <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  <IconButton
+                    onClick={() => setShowPassword(!showPassword)}
+                    edge="end"
+                  >
+                    <Iconify
+                      icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
+                    />
                   </IconButton>
                 </InputAdornment>
               ),
@@ -133,8 +155,10 @@ export default function AddUser() {
           />
         </Grid>
         <Grid item xs={7}>
-          <FormControl sx={{width:'100%'}}>
-            <InputLabel id="demo-multiple-checkbox-label" color="form">Select User Roles</InputLabel>
+          <FormControl sx={{ width: "100%", marginTop:'15px' }}>
+            <InputLabel id="demo-multiple-checkbox-label" color="form">
+              Select User Roles
+            </InputLabel>
             <Select
               labelId="demo-multiple-checkbox-label"
               id="demo-multiple-checkbox"
@@ -144,31 +168,38 @@ export default function AddUser() {
               onChange={handleChangeRole}
               input={<OutlinedInput label="Select User Roles" />}
               renderValue={(selected) => (
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                  {selected.map((value) => (
-                    roles.data && roles.data.map((role) => (
-                      value === role.id ? <Chip key={value} label={role.name} /> : ''
-                    ))
-                  ))}
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                  {selected.map(
+                    (value) =>
+                      roles.data &&
+                      roles.data.map((role) =>
+                        value === role.id ? (
+                          <Chip key={value} label={role.name} />
+                        ) : (
+                          ""
+                        )
+                      )
+                  )}
                 </Box>
               )}
             >
-              {roles.data && roles.data.map((role) => (
-                <MenuItem key={role.id} value={role.id}>
-                  <Checkbox checked={userRole.indexOf(role.name) > -1} color="form"/>
-                  <ListItemText primary={role.name} />
-                </MenuItem>
-              ))}
+              {roles.data &&
+                roles.data.map((role) => (
+                  <MenuItem key={role.id} value={role.id}>
+                    <Checkbox
+                      checked={userRole.indexOf(role.name) > -1}
+                      color="form"
+                    />
+                    <ListItemText primary={role.name} />
+                  </MenuItem>
+                ))}
             </Select>
           </FormControl>
         </Grid>
         <Grid item xs={7}>
-          <SaveButton type="submit">
-            Save
-          </SaveButton>
+          <SaveButton type="submit">Save</SaveButton>
         </Grid>
-      </Grid>
       </FormProvider>
-    </Fragment>
+    </PageLayout>
   );
 }

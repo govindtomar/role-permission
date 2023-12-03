@@ -5,11 +5,11 @@ namespace App\Http\Controllers\API\Backend;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\API\Backend\UserRequest;
 // use Kreait\Firebase\Auth as FirebaseAuth;
 // use Kreait\Firebase\Exception\FirebaseException;
 use App\Models\User;
 use App\Models\Role;
-use App\Http\Requests\Backend\UserRequest;
 use Validator;
 use Auth;
 

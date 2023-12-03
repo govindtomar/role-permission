@@ -4,7 +4,7 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import AppLayoutWithSidebar from '../layouts/AppLayoutWithSidebar';
 import AppLayout from '../layouts/AppLayout';
 import AuthLayout from '../layouts/AuthLayout';
-import { IsAuth, RoutePermissions } from 'src/helpers/RouteHelper';
+import { IsAuth, RoutePermissions } from 'src/resources/helpers/RouteHelper';
 
 // Routes Layouts
 import BackendPrivateRoutes from './BackendPrivateRoutes';
@@ -17,7 +17,8 @@ import Register from '../pages/Auth/Register';
 
 // Routes
 
-import NotFound from '../pages/Error/AccessDenied';
+// import AccessDenied from '../pages/Error/AccessDenied';
+import Error404 from '../pages/Error/Error404';
 import AccessDenied from './AccessDenied';
 
 
@@ -82,7 +83,7 @@ export default function Router() {
     },
     { 
       path: '404', element: 
-      <NotFound /> 
+      <Error404 /> 
     },
   ]
 

@@ -16,10 +16,10 @@ use Illuminate\Support\Str;
 */
 
 Route::get('/', function () {
-    // return Response::json([
-    //     'status' => 'success',
-    //     'status_code' => 200,
-    //     'message' => 'Project is running'
-    // ]);
+    return Response::json([
+        'status' => 'success',
+        'status_code' => 200,
+        'message' => 'Project is running'
+    ]);
 });
 

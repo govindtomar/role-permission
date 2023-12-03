@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 //
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
-import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP, WEB_WIDTH} from 'src/constants/theme'
+import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP, WEB_WIDTH} from 'src/resources/constants/theme'
 
 
 // ----------------------------------------------------------------------

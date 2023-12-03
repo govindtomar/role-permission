@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect} from 'react';
+import React, { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRoles, deleteRole, roleStatus} from 'src/store/api/role';
 import { ActiveInactiveButton, LinkButton } from 'src/components/Button';
@@ -15,15 +15,13 @@ import {
   TablePagination,
   TableHead,
   TableRow,
-  Paper, 
-  Container, 
-  Stack, 
-  Typography,
+  Paper,
   Card
 } from '@mui/material';
 import BreadcrumbNavigator from 'src/components/BreadcrumbNavigator';
 import {SearchInTable} from 'src/components/Table';
-import { getSearchQueryParams, setSearchQueryParams, recordPerPage } from 'src/helpers/SearchHelper';
+import { getSearchQueryParams, setSearchQueryParams, recordPerPage } from 'src/resources/helpers/SearchHelper';
+import PageLayout from 'src/components/PageLayout';
 
 export default function Role() {
   const dispatch = useDispatch();
@@ -86,7 +84,7 @@ export default function Role() {
   }
 
   return (
-    <Fragment>
+    <PageLayout title="Role List">
       <BreadcrumbNavigator
         currentPage="Role List" 
         rightButton={{name: "add role", link: "/role/add"}} 
@@ -159,6 +157,6 @@ export default function Role() {
         confirmDialog={changeStatusFunc}
       />
 
-    </Fragment>
+    </PageLayout>
   );
 }

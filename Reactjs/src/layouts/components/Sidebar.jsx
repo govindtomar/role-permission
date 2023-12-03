@@ -7,12 +7,12 @@ import { Box, Link, Button, Drawer, Typography, Avatar, Stack } from '@mui/mater
 // mock
 import account from '../../_mock/account';
 // hooks
-import useResponsive from '../../hooks/useResponsive';
+import useResponsive from '../../resources/hooks/useResponsive';
 // components
 import Logo from '../../components/Logo';
 import Scrollbar from '../../components/Scrollbar';
 import NavSection from '../../components/NavSection';
-import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/constants/theme'
+import { DRAWER_WIDTH, APPBAR_MOBILE, APPBAR_DESKTOP} from 'src/resources/constants/theme'
 
 //
 import navConfig from './NavConfig';

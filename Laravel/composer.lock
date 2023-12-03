@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9ea5bb2a1ed469d9f4baaf0c4e1aa56e",
+    "content-hash": "5d3fbab8c5c7885c8ef450381cf18b69",
     "packages": [
         {
             "name": "brick/math",
@@ -571,6 +571,50 @@
                 }
             ],
             "time": "2023-10-12T05:21:21+00:00"
+        },
+        {
+            "name": "govindtomar/crud-generator-api",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/govindtomar/crud-generator-api.git",
+                "reference": "11e22451720d540029bf910f1cfccdf26987dcce"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/govindtomar/crud-generator-api/zipball/11e22451720d540029bf910f1cfccdf26987dcce",
+                "reference": "11e22451720d540029bf910f1cfccdf26987dcce",
+                "shasum": ""
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "GovindTomar\\CrudGeneratorApi\\CrudGeneratorApiServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GovindTomar\\CrudGeneratorApi\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "govindtomar",
+                    "email": "govindtomar01@gmail.com"
+                }
+            ],
+            "description": "Laravel crud generator api",
+            "support": {
+                "issues": "https://github.com/govindtomar/crud-generator-api/issues",
+                "source": "https://github.com/govindtomar/crud-generator-api/tree/1.0.2"
+            },
+            "time": "2023-12-03T12:00:19+00:00"
         },
         {
             "name": "graham-campbell/result-type",

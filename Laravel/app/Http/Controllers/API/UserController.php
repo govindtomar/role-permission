@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\API\Backend;
+namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\API\Backend\UserRequest;
+use App\Http\Requests\API\UserRequest;
 // use Kreait\Firebase\Auth as FirebaseAuth;
 // use Kreait\Firebase\Exception\FirebaseException;
 use App\Models\User;

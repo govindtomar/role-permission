@@ -7,9 +7,9 @@ use App\Models\User;
 use App\Models\Role;
 use App\Http\Controllers\ApiController;
 use App\Exceptions\ApiException;
-use App\Http\Requests\Auth\LoginRequest;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Http\Controllers\API\Backend\RolePermission\RolePermissionController;
+use App\Http\Requests\API\Auth\LoginRequest;
+use App\Http\Requests\API\Auth\RegisterRequest;
+use App\Http\Controllers\API\RolePermission\RolePermissionController;
 
 class AuthController extends ApiController
 {

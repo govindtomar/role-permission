@@ -1,26 +1,26 @@
-import Dashboard from '../pages/Backend/Dashboard';
+import Dashboard from '../pages/Dashboard';
 //User
-import AddUser from '../pages/Backend/User/AddUser'
-import User from '../pages/Backend/User/User'
-import EditUser from '../pages/Backend/User/EditUser'
+import AddUser from '../pages/User/AddUser'
+import User from '../pages/User/User'
+import EditUser from '../pages/User/EditUser'
 //Role
-import AddRole from '../pages/Backend/RolePermission/Role/AddRole'
-import Role from '../pages/Backend/RolePermission/Role/Role'
-import EditRole from 'src/pages/Backend/RolePermission/Role/EditRole';
+import AddRole from '../pages/RolePermission/Role/AddRole'
+import Role from '../pages/RolePermission/Role/Role'
+import EditRole from 'src/pages/RolePermission/Role/EditRole';
 //Permission
-import AddPermission from '../pages/Backend/RolePermission/Permission/AddPermission'
-import Permission from '../pages/Backend/RolePermission/Permission/Permission'
-import EditPermission from 'src/pages/Backend/RolePermission/Permission/EditPermission';
+import AddPermission from '../pages/RolePermission/Permission/AddPermission'
+import Permission from '../pages/RolePermission/Permission/Permission'
+import EditPermission from 'src/pages/RolePermission/Permission/EditPermission';
 //Permission Module
-import PermissionModule from '../pages/Backend/RolePermission/PermissionModule/PermissionModule'
-import AddPermissionModule from '../pages/Backend/RolePermission/PermissionModule/AddPermissionModule'
-import EditPermissionModule from '../pages/Backend/RolePermission/PermissionModule/EditPermissionModule'
+import PermissionModule from '../pages/RolePermission/PermissionModule/PermissionModule'
+import AddPermissionModule from '../pages/RolePermission/PermissionModule/AddPermissionModule'
+import EditPermissionModule from '../pages/RolePermission/PermissionModule/EditPermissionModule'
 //Role Permission
-import RolePermission from 'src/pages/Backend/RolePermission/RolePermission';
+import RolePermission from 'src/pages/RolePermission/RolePermission';
 //Service
-import AddService from '../pages/Backend/Service/AddService'
-import Service from '../pages/Backend/Service/Service'
-import EditService from '../pages/Backend/Service/EditService'
+import AddService from '../pages/Service/AddService'
+import Service from '../pages/Service/Service'
+import EditService from '../pages/Service/EditService'
 
 
 const BackendPrivateRoutes = [

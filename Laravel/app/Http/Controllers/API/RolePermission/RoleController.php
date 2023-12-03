@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\API\RolePermission;
-
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use App\Models\Role;
 use App\Models\RolePermission;
 use App\Models\Permission;
 use App\Models\User;
-use App\ApiExceptions\ApiApiException;
+use App\Exceptions\ApiException;
 use App\Http\Requests\API\RolePermission\RoleRequest;
 use Auth;
 use Validator;
@@ -104,7 +103,7 @@ class RoleController extends ApiController
                 'data' =>  $role,
             ]);
 
-        } catch (ApiApiException $e) {
+        } catch (ApiException $e) {
             return $this->errorResponse($e->getMessage());
         }
     }
